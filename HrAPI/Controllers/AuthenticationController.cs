@@ -137,7 +137,7 @@ namespace HrAPI.Controllers
                 await userManager.AddToRoleAsync(user, UserRoles.HR);
             }
             string url = "http://localhost:4200/login";
-            var message = new Message(new string[] { $"{model.Email}" }, "Confirmation Email", $"Dear {model.UserName}\r\n $Hope this email finds you well \r\n This is Al-Mostakbal Technology. As per your registration , please note that your Email:{model.Email} And Password :{model.Password} follow link to login ${url}");
+            var message = new Message(new string[] { $"{model.Email}" }, "Confirmation Email", $"Dear {model.UserName}\r\n Hope this email finds you well \r\n This is Al-Mostakbal Technology. As per your registration , please note that your Email : {model.Email} And Password :{model.Password} follow link to login {url}");
             _emailSender.SendEmail(message);
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
