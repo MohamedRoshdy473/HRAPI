@@ -10,6 +10,7 @@ namespace HrAPI.DTO
         public int ID { get; set; }
         public int EmployeeID { get; set; }
         public int LeaveTypeID { get; set; }
+        public string LeaveTypeName { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public DateTime Date { get; set; }
@@ -23,6 +24,7 @@ namespace HrAPI.DTO
         public string AlternativeAddress { get; set; }
         public string Status { get; set; }
         public string EmployeeName { get; set; }
+        public int ProfessionID { get; set; }
         public string Profession { get; set; }
         public string LeavesFiles { get; set; }
 

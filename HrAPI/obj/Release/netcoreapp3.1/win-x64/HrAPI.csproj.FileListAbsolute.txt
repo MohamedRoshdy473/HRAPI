@@ -953,7 +953,6 @@ D:\HR\HrAPI\HrAPI\bin\Release\netcoreapp3.1\win-x64\MimeKit.dll
 D:\HR\HrAPI\HrAPI\bin\Release\netcoreapp3.1\win-x64\NETCore.MailKit.dll
 D:\HR\HrAPI\HrAPI\bin\Release\netcoreapp3.1\win-x64\BouncyCastle.Crypto.dll
 D:\HRAPI\HrAPI\bin\Release\netcoreapp3.1\win-x64\appsettings.Development.json
-D:\HRAPI\HrAPI\bin\Release\netcoreapp3.1\win-x64\Properties\launchSettings.json
 D:\HRAPI\HrAPI\bin\Release\netcoreapp3.1\win-x64\appsettings.json
 D:\HRAPI\HrAPI\bin\Release\netcoreapp3.1\win-x64\HrAPI.exe
 D:\HRAPI\HrAPI\bin\Release\netcoreapp3.1\win-x64\HrAPI.deps.json
@@ -1431,3 +1430,4 @@ D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\HrAPI.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\HrAPI.pdb
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\HrAPI.genruntimeconfig.cache
 D:\HRAPI\HrAPI\bin\Release\netcoreapp3.1\win-x64\mscordaccore_amd64_amd64_4.700.21.6504.dll
+D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\scopedcss\bundle\HrAPI.styles.css

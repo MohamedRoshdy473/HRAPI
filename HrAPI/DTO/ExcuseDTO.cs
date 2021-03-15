@@ -8,6 +8,7 @@ namespace HrAPI.DTO
     public class ExcuseDTO
     {
         public int ID { get; set; }
+        public int EmployeeId { get; set; }
         public string EmployeeName { get; set; }
         public DateTime Date { get; set; }
         public string Time { get; set; }

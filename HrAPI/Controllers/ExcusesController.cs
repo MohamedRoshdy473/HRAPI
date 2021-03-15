@@ -60,6 +60,7 @@ namespace HrAPI.Controllers
                 Date = ex.Date,
                 ProfessionID=ex.Employee.ProfessionID,
                 ProfessionName = ex.Employee.Profession.Name,
+                EmployeeId=ex.EmployeeID,
                 EmployeeName = ex.Employee.Name,
                 Hours = ex.Hours,
                 Time = ex.Time

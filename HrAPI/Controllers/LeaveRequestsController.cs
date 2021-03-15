@@ -53,6 +53,7 @@ namespace HrAPI.Controllers
                 {
                     ID = ex.ID,
                     EmployeeName = ex.Employee.Name,
+                    ProfessionID=ex.Employee.ProfessionID,
                     Profession = ex.Employee.Profession.Name,
                     Status = ex.Status,
                     Comment = ex.Comment,
@@ -63,6 +64,7 @@ namespace HrAPI.Controllers
                     AlternativeEmp = ex.AlternativeEmp.Name,
                     Days = ex.Days,
                     LeaveTypeID = ex.LeaveTypeID,
+                    LeaveTypeName=ex.LeaveType.Name,
                     Start = ex.Start,
                    // LeavesFiles=ex.LeavesFiles
             }).ToListAsync();
