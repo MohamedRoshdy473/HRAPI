@@ -52,24 +52,105 @@ namespace HrAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ExcuseDTO>>> GetExcuses()
         {
-            return await _context.Excuses.Select(ex => new ExcuseDTO
+            var ExcusesList= await _context.Excuses.Select(ex => new ExcuseDTO
             {
                 ID = ex.ID,
                 Approved = ex.Approved,
                 Comment = ex.Comment,
                 Date = ex.Date,
-                ProfessionID=ex.Employee.ProfessionID,
+                ProfessionID = ex.Employee.ProfessionID,
                 ProfessionName = ex.Employee.Profession.Name,
-                EmployeeId=ex.EmployeeID,
+                EmployeeId = ex.EmployeeID,
+                EmployeeName = ex.Employee.Name,
+                Hours = ex.Hours,
+                Time = ex.Time
+            }).ToListAsync();
+           // var results = ExcusesList.GroupBy(p => p.ProfessionName).Select(grp => grp.ToList()).ToList();
+            return ExcusesList;
+        }
+        [Route("GetExcusesForReport")]
+        public IEnumerable<ExcuseDTO> GetExcusesForReport()
+        {
+            List<ExcuseDTO> lstexcuses = new List<ExcuseDTO>();
+            var ExcusesList =  _context.Excuses.GroupBy(p => p.Employee.ProfessionID).ToList();
+
+            foreach (var items in ExcusesList)
+            {
+                foreach (var item in items)
+                {
+                ExcuseDTO excuseObj = new ExcuseDTO();
+                    excuseObj.ProfessionName = item.Employee.Profession.Name;
+                    excuseObj.ID = item.ID;
+                    excuseObj.Approved = item.Approved;
+                    excuseObj.Comment = item.Comment;
+                    excuseObj.Date = item.Date;
+                    excuseObj.ProfessionID = item.Employee.ProfessionID;
+                    excuseObj.EmployeeId = item.EmployeeID;
+                    excuseObj.EmployeeName = item.Employee.Name;
+                    excuseObj.Hours = item.Hours;
+                    excuseObj.Time = item.Time;
+                lstexcuses.Add(excuseObj);
+                }
+            }
+            return lstexcuses;
+        }
+        [Route("GetExcusesByProfessionId/{ProfessionId}")]
+        public async Task<ActionResult<IEnumerable<ExcuseDTO>>> GetExcusesByProfessionId(int ProfessionId)
+        {
+            return await _context.Excuses.Where(e => e.Employee.ProfessionID == ProfessionId).Select(ex => new ExcuseDTO
+            {
+                ID = ex.ID,
+                Approved = ex.Approved,
+                Comment = ex.Comment,
+                Date = ex.Date,
+                ProfessionID = ex.Employee.ProfessionID,
+                ProfessionName = ex.Employee.Profession.Name,
+                EmployeeId = ex.EmployeeID,
                 EmployeeName = ex.Employee.Name,
                 Hours = ex.Hours,
                 Time = ex.Time
             }).ToListAsync();
         }
+        [Route("GetExcusesByProfessionIdAndEmployeeId/{ProfessionId}/{EmployeeId}")]
+        public async Task<ActionResult<IEnumerable<ExcuseDTO>>> GetExcusesByProfessionIdAndEmployeeId(int ProfessionId, int EmployeeId)
+        {
+            return await _context.Excuses.Where(e => e.Employee.ProfessionID == ProfessionId && e.EmployeeID == EmployeeId).Select(ex => new ExcuseDTO
+            {
+                ID = ex.ID,
+                Approved = ex.Approved,
+                Comment = ex.Comment,
+                Date = ex.Date,
+                ProfessionID = ex.Employee.ProfessionID,
+                ProfessionName = ex.Employee.Profession.Name,
+                EmployeeId = ex.EmployeeID,
+                EmployeeName = ex.Employee.Name,
+                Hours = ex.Hours,
+                Time = ex.Time
+            }).ToListAsync();
+        }
+        [Route("GetExcusesByProfessionIdAndEmployeeIdAndDate/{ProfessionId}/{EmployeeId}/{startDate}/{endDate}")]
+        public async Task<ActionResult<IEnumerable<ExcuseDTO>>> GetExcusesByProfessionIdAndEmployeeIdAndDate(int ProfessionId, int EmployeeId, DateTime startDate, DateTime endDate)
+        {
+            var ExcusesList = await _context.Excuses.Where(e => e.Employee.ProfessionID == ProfessionId && e.EmployeeID == EmployeeId
+             && e.Date >= startDate && e.Date <= endDate).Select(ex => new ExcuseDTO
+             {
+                 ID = ex.ID,
+                 Approved = ex.Approved,
+                 Comment = ex.Comment,
+                 Date = ex.Date,
+                 ProfessionID = ex.Employee.ProfessionID,
+                 ProfessionName = ex.Employee.Profession.Name,
+                 EmployeeId = ex.EmployeeID,
+                 EmployeeName = ex.Employee.Name,
+                 Hours = ex.Hours,
+                 Time = ex.Time
+             }).ToListAsync();
+            return ExcusesList;
+        }
         [Route("GetExcusesByManager")]
         public async Task<ActionResult<IEnumerable<ExcuseDTO>>> GetExcusesByManager()
         {
-            var ex =await _context.Excuses.Where(ex => ex.Employee.Profession.ManagerID == CurrentEmployee().ID)
+            var ex = await _context.Excuses.Where(ex => ex.Employee.Profession.ManagerID == CurrentEmployee().ID)
                  .Select(ex => new ExcuseDTO
                  {
                      ID = ex.ID,
@@ -82,7 +163,7 @@ namespace HrAPI.Controllers
                      Hours = ex.Hours,
                      Time = ex.Time
                  }).ToListAsync();
-            return  ex;
+            return ex;
         }
         [Route("ApprovedExcuses")]
         public async Task<ActionResult<IEnumerable<ExcuseDTO>>> GetApprovedExcuses()
@@ -118,7 +199,7 @@ namespace HrAPI.Controllers
         [Route("DisApprovedExcuses")]
         public async Task<ActionResult<IEnumerable<ExcuseDTO>>> GetDisApprovedExcuses()
         {
-            return await _context.Excuses.Where(ex => ex.Approved == "disapproved" ).Select(ex => new ExcuseDTO
+            return await _context.Excuses.Where(ex => ex.Approved == "disapproved").Select(ex => new ExcuseDTO
             {
                 ID = ex.ID,
                 Approved = ex.Approved,
@@ -266,8 +347,8 @@ namespace HrAPI.Controllers
         [Route("GetExcuseByEmployeeId/{EmployeeId}")]
         public Boolean GetExcuseByEmployeeId(int EmployeeId)
         {
-            var lstEx= _context.Excuses.Include(e => e.Employee).Where(e => e.EmployeeID == EmployeeId && e.Date.Month==DateTime.Today.Month).ToList();
-            if (lstEx.Count==0)
+            var lstEx = _context.Excuses.Include(e => e.Employee).Where(e => e.EmployeeID == EmployeeId && e.Date.Month == DateTime.Today.Month).ToList();
+            if (lstEx.Count == 0)
             {
                 return true;
             }

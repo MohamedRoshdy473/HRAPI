@@ -15,5 +15,12 @@ namespace HrAPI.DTO
         public DateTime time { get; set; }
         public string DepTime { get; set; }
         public string photo { get; set; }
+
+        public int EmployeeId { get; set; }
+        public string EmployeeName { get; set; }
+        public int ProfessionId { get; set; }
+        public DateTime Arrival { get; set; }
+        public DateTime Departure { get; set; }
+
     }
 }

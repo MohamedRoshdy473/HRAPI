@@ -70,6 +70,80 @@ namespace HrAPI.Controllers
             }).ToListAsync();
             return leave;
         }
+        [Route("GetLeaveRequestsByProfessionId/{ProfessionId}/")]
+        public async Task<ActionResult<IEnumerable<LeaveDTO>>> GetLeaveRequestsByProfessionId(int ProfessionId)
+        {
+
+            var leave = await _context.LeaveRequests.Where(l => l.Employee.ProfessionID == ProfessionId).Include(e => e.Employee).Select(ex => new LeaveDTO
+            {
+                ID = ex.ID,
+                EmployeeName = ex.Employee.Name,
+                ProfessionID = ex.Employee.ProfessionID,
+                Profession = ex.Employee.Profession.Name,
+                Status = ex.Status,
+                Comment = ex.Comment,
+                Date = ex.Date,
+                EmployeeID = ex.EmployeeID,
+                AlternativeAddress = ex.AlternativeAddress,
+                AlternativeEmpID = ex.AlternativeEmp.ID,
+                AlternativeEmp = ex.AlternativeEmp.Name,
+                Days = ex.Days,
+                LeaveTypeID = ex.LeaveTypeID,
+                LeaveTypeName = ex.LeaveType.Name,
+                Start = ex.Start,
+            }).ToListAsync();
+            return leave;
+        }
+        [Route("GetLeaveRequestsByProfessionIdEmployeeId/{ProfessionId}/{EmployeeId}")]
+        public async Task<ActionResult<IEnumerable<LeaveDTO>>> GetLeaveRequestsByProfessionIdEmployeeId(int ProfessionId,int EmployeeId)
+        {
+
+            var leave = await _context.LeaveRequests.Where(l=>l.Employee.ProfessionID== ProfessionId && l.EmployeeID==EmployeeId).Select(ex => new LeaveDTO
+            {
+                ID = ex.ID,
+                EmployeeName = ex.Employee.Name,
+                ProfessionID = ex.Employee.ProfessionID,
+                Profession = ex.Employee.Profession.Name,
+                Status = ex.Status,
+                Comment = ex.Comment,
+                Date = ex.Date,
+                EmployeeID = ex.EmployeeID,
+                AlternativeAddress = ex.AlternativeAddress,
+                AlternativeEmpID = ex.AlternativeEmp.ID,
+                AlternativeEmp = ex.AlternativeEmp.Name,
+                Days = ex.Days,
+                LeaveTypeID = ex.LeaveTypeID,
+                LeaveTypeName = ex.LeaveType.Name,
+                Start = ex.Start,
+            }).ToListAsync();
+            return leave;
+        }
+        [Route("GetLeaveRequestsByProfessionIdEmployeeIdAndDate/{ProfessionId}/{EmployeeId}/{startDate}/{endDate}")]
+        public async Task<ActionResult<IEnumerable<LeaveDTO>>> GetLeaveRequestsByProfessionIdEmployeeIdAndDate(int ProfessionId, int EmployeeId, DateTime startDate, DateTime endDate)
+        {
+
+            var leave = await _context.LeaveRequests.Where(l => l.Employee.ProfessionID == ProfessionId && l.EmployeeID == EmployeeId
+            && l.Start >= startDate && l.Start <= endDate).Select(ex => new LeaveDTO
+            {
+                ID = ex.ID,
+                EmployeeName = ex.Employee.Name,
+                ProfessionID = ex.Employee.ProfessionID,
+                Profession = ex.Employee.Profession.Name,
+                Status = ex.Status,
+                Comment = ex.Comment,
+                Date = ex.Date,
+                EmployeeID = ex.EmployeeID,
+                AlternativeAddress = ex.AlternativeAddress,
+                AlternativeEmpID = ex.AlternativeEmp.ID,
+                AlternativeEmp = ex.AlternativeEmp.Name,
+                Days = ex.Days,
+                LeaveTypeID = ex.LeaveTypeID,
+                LeaveTypeName = ex.LeaveType.Name,
+                Start = ex.Start,
+            }).ToListAsync();
+            return leave;
+        }
+
         [Route("GetLeaveRequestsByManager")]
         public async Task<ActionResult<IEnumerable<LeaveDTO>>> GetLeaveRequestsByManager()
         {

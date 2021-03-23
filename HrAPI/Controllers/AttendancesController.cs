@@ -33,21 +33,22 @@ namespace HrAPI.Controllers
         public async Task<ActionResult<IEnumerable<AttendanceDTO>>> getTodayAttendedIN()
         {
             //var attenList= _context.Attendance.Where(a=>a.Arrival.Date==DateTime.Now.Date).ToListAsync();
-            var lstEmployeeAttendance =  (from attend in _context.Attendance
-                      join emp in _context.Employees on attend.EmployeeID equals emp.ID
-                      where attend.Arrival.Date == DateTime.Today.Date
-                      select new AttendanceDTO 
-                      { time=attend.Arrival,
-                      Code=emp.Code,
-                      AttID=attend.ID,
-                      ID=emp.ID,
-                      Name=emp.Name,
-                      photo=emp.photo,
-                      Profession=emp.Profession.Name
-                      }).ToList();
-          
-            
-            return   lstEmployeeAttendance;
+            var lstEmployeeAttendance = (from attend in _context.Attendance
+                                         join emp in _context.Employees on attend.EmployeeID equals emp.ID
+                                         where attend.Arrival.Date == DateTime.Today.Date
+                                         select new AttendanceDTO
+                                         {
+                                             time = attend.Arrival,
+                                             Code = emp.Code,
+                                             AttID = attend.ID,
+                                             ID = emp.ID,
+                                             Name = emp.Name,
+                                             photo = emp.photo,
+                                             Profession = emp.Profession.Name
+                                         }).ToList();
+
+
+            return lstEmployeeAttendance;
         }
         [HttpGet]
         [Route("getTodayAttendedOUT")]
@@ -67,9 +68,83 @@ namespace HrAPI.Controllers
                                              photo = emp.photo,
                                              Profession = emp.Profession.Name
                                          }).ToList();
-
-
             return lstEmployeeAttendance;
+        }
+        [Route("GetAttendances")]
+        public IEnumerable<AttendanceGroupedDTO> GetAttendances()
+        {
+            List<AttendanceGroupedDTO> list = new List<AttendanceGroupedDTO>();
+            var lstEmployees = _context.Employees.ToList();
+            foreach (var emp in lstEmployees)
+            {
+                AttendanceGroupedDTO attendanceGrouped = new AttendanceGroupedDTO();
+                attendanceGrouped.EmployeeId = emp.ID;
+                attendanceGrouped.EmployeeName = emp.Name;
+                attendanceGrouped.lstAttendance = _context.Attendance.Where(att => att.EmployeeID == emp.ID).ToList();
+                list.Add(attendanceGrouped);
+            }
+            return list;
+        }
+        [Route("GetAttendancesByProfessionId/{ProfessionId}")]
+        public IEnumerable<AttendanceGroupedDTO> GetAttendancesByProfessionId(int ProfessionId)
+        {
+            List<AttendanceGroupedDTO> list = new List<AttendanceGroupedDTO>();
+            var lstEmployees = _context.Employees.Where(e=>e.ProfessionID==ProfessionId).ToList();
+            foreach (var emp in lstEmployees)
+            {
+                AttendanceGroupedDTO attendanceGrouped = new AttendanceGroupedDTO();
+                attendanceGrouped.EmployeeId = emp.ID;
+                attendanceGrouped.EmployeeName = emp.Name;
+                attendanceGrouped.lstAttendance = _context.Attendance.Where(att => att.EmployeeID == emp.ID).ToList();
+                list.Add(attendanceGrouped);
+            }
+            return list;
+        }
+        [Route("GetAttendancesByProfessionIdAndEmployeeId/{ProfessionId}/{EmployeeId}")]
+        public IEnumerable<AttendanceGroupedDTO> GetAttendancesByProfessionIdAndEmployeeId(int ProfessionId,int EmployeeId)
+        {
+            List<AttendanceGroupedDTO> list = new List<AttendanceGroupedDTO>();
+            var lstEmployees = _context.Employees.Where(e => e.ProfessionID == ProfessionId && e.ID==EmployeeId).ToList();
+            foreach (var emp in lstEmployees)
+            {
+                AttendanceGroupedDTO attendanceGrouped = new AttendanceGroupedDTO();
+                attendanceGrouped.EmployeeId = emp.ID;
+                attendanceGrouped.EmployeeName = emp.Name;
+                attendanceGrouped.lstAttendance = _context.Attendance.Where(att => att.EmployeeID == emp.ID && att.Employee.ProfessionID == ProfessionId).ToList();
+                list.Add(attendanceGrouped);
+            }
+            return list;
+        }
+        [Route("GetAttendancesByProfessionIdAndEmployeeIdAndDate/{ProfessionId}/{EmployeeId}/{startDate}/{endDate}")]
+        public IEnumerable<AttendanceGroupedDTO> GetAttendancesByProfessionIdAndEmployeeIdAndDate(int ProfessionId, int EmployeeId, DateTime startDate, DateTime endDate)
+        {
+            List<AttendanceGroupedDTO> list = new List<AttendanceGroupedDTO>();
+            var lstEmployees = _context.Employees.Where(e => e.ProfessionID == ProfessionId && e.ID == EmployeeId).ToList();
+            foreach (var emp in lstEmployees)
+            {
+                AttendanceGroupedDTO attendanceGrouped = new AttendanceGroupedDTO();
+                attendanceGrouped.EmployeeId = emp.ID;
+                attendanceGrouped.EmployeeName = emp.Name;
+                attendanceGrouped.lstAttendance = _context.Attendance.Where(att => att.EmployeeID == emp.ID && att.Employee.ProfessionID == ProfessionId
+                 && att.Arrival >= startDate && att.Departure <= endDate).ToList();
+                list.Add(attendanceGrouped);
+            }
+            return list;
+        }
+        [Route("GetAttendancesByDate/{startDate}/{endDate}")]
+        public IEnumerable<AttendanceGroupedDTO> GetAttendancesByDate(DateTime startDate, DateTime endDate)
+        {
+            List<AttendanceGroupedDTO> list = new List<AttendanceGroupedDTO>();
+            var lstEmployees = _context.Employees.ToList();
+            foreach (var emp in lstEmployees)
+            {
+                AttendanceGroupedDTO attendanceGrouped = new AttendanceGroupedDTO();
+                attendanceGrouped.EmployeeId = emp.ID;
+                attendanceGrouped.EmployeeName = emp.Name;
+                attendanceGrouped.lstAttendance = _context.Attendance.Where(att => att.Arrival >= startDate && att.Departure <= endDate && att.EmployeeID == emp.ID).ToList();
+                list.Add(attendanceGrouped);
+            }
+            return list;
         }
         // GET: api/Attendances/5
         [HttpGet("{id}")]
