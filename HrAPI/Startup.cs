@@ -34,8 +34,13 @@ namespace HrAPI
             services.AddHttpContextAccessor();
             services.AddCors();
             services.AddMvc();
-                //.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+
+            //.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            // services.AddControllers();
             var emailConfig = Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
             services.AddSingleton(emailConfig);
             services.AddScoped<IEmailSender, EmailSender>();

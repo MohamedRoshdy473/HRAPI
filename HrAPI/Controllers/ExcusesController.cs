@@ -69,83 +69,93 @@ namespace HrAPI.Controllers
             return ExcusesList;
         }
         [Route("GetExcusesForReport")]
-        public IEnumerable<ExcuseDTO> GetExcusesForReport()
+        public IEnumerable<ReportExcuseDTO> GetExcusesForReport()
         {
-            List<ExcuseDTO> lstexcuses = new List<ExcuseDTO>();
-            var ExcusesList =  _context.Excuses.GroupBy(p => p.Employee.ProfessionID).ToList();
+            List<ReportExcuseDTO> lstexcusesDTO = new List<ReportExcuseDTO>();
 
-            foreach (var items in ExcusesList)
+            //var lstEmployees = _context.Employees.ToList();
+            //foreach (var item in lstEmployees)
+            //{
+            //    ReportExcuseDTO excuseObj = new ReportExcuseDTO();
+            //    excuseObj.EmployeeName = item.Name;
+            //    excuseObj.ProfessionName= _context.Employees.Where(a => a.Profession.ID == item.ProfessionID).ToList().FirstOrDefault().Name;
+            //   var lstExecuses = _context.Excuses.Where(a => a.EmployeeID == item.ID).ToList();
+            //    if (lstExecuses.Count > 0)
+            //    {
+            //        excuseObj.lstExcuse = lstExecuses;
+            //    }
+            //    lstexcusesDTO.Add(excuseObj);
+            //}
+
+          //  var listex = _context.Excuses.ToList();
+            var ExcusesList = (from ex in _context.Excuses.Include(ex=>ex.Employee.Profession).ToList()
+                               select ex).GroupBy(grp => grp.EmployeeID).ToList();
+            foreach (var item in ExcusesList)
             {
-                foreach (var item in items)
-                {
-                ExcuseDTO excuseObj = new ExcuseDTO();
-                    excuseObj.ProfessionName = item.Employee.Profession.Name;
-                    excuseObj.ID = item.ID;
-                    excuseObj.Approved = item.Approved;
-                    excuseObj.Comment = item.Comment;
-                    excuseObj.Date = item.Date;
-                    excuseObj.ProfessionID = item.Employee.ProfessionID;
-                    excuseObj.EmployeeId = item.EmployeeID;
-                    excuseObj.EmployeeName = item.Employee.Name;
-                    excuseObj.Hours = item.Hours;
-                    excuseObj.Time = item.Time;
-                lstexcuses.Add(excuseObj);
-                }
+                ReportExcuseDTO excuseObj = new ReportExcuseDTO();
+                excuseObj.ProfessionName = item.FirstOrDefault().Employee.Profession.Name;
+                excuseObj.ProfessionId = item.FirstOrDefault().Employee.ProfessionID;
+                excuseObj.EmployeeId = item.FirstOrDefault().EmployeeID;
+                excuseObj.EmployeeName = item.FirstOrDefault().Employee.Name;
+                excuseObj.lstExcuse = item.ToList();
+                lstexcusesDTO.Add(excuseObj);
             }
-            return lstexcuses;
+            return lstexcusesDTO;
         }
         [Route("GetExcusesByProfessionId/{ProfessionId}")]
-        public async Task<ActionResult<IEnumerable<ExcuseDTO>>> GetExcusesByProfessionId(int ProfessionId)
+        public ActionResult<IEnumerable<ReportExcuseDTO>> GetExcusesByProfessionId(int ProfessionId)
         {
-            return await _context.Excuses.Where(e => e.Employee.ProfessionID == ProfessionId).Select(ex => new ExcuseDTO
+            List<ReportExcuseDTO> lstexcusesDTO = new List<ReportExcuseDTO>();
+            var ExcusesList = (from ex in  _context.Excuses.Include(ex => ex.Employee.Profession).Where(e => e.Employee.ProfessionID == ProfessionId).ToList()
+                                          select ex).GroupBy(grp => grp.EmployeeID).ToList();
+            foreach (var item in ExcusesList)
             {
-                ID = ex.ID,
-                Approved = ex.Approved,
-                Comment = ex.Comment,
-                Date = ex.Date,
-                ProfessionID = ex.Employee.ProfessionID,
-                ProfessionName = ex.Employee.Profession.Name,
-                EmployeeId = ex.EmployeeID,
-                EmployeeName = ex.Employee.Name,
-                Hours = ex.Hours,
-                Time = ex.Time
-            }).ToListAsync();
+                ReportExcuseDTO excuseObj = new ReportExcuseDTO();
+                excuseObj.ProfessionName = item.FirstOrDefault().Employee.Profession.Name;
+                excuseObj.ProfessionId = item.FirstOrDefault().Employee.ProfessionID;
+                excuseObj.EmployeeId = item.FirstOrDefault().EmployeeID;
+                excuseObj.EmployeeName = item.FirstOrDefault().Employee.Name;
+                excuseObj.lstExcuse = item.ToList();
+                lstexcusesDTO.Add(excuseObj);
+            }
+            return  lstexcusesDTO;
         }
         [Route("GetExcusesByProfessionIdAndEmployeeId/{ProfessionId}/{EmployeeId}")]
-        public async Task<ActionResult<IEnumerable<ExcuseDTO>>> GetExcusesByProfessionIdAndEmployeeId(int ProfessionId, int EmployeeId)
+        public ActionResult<IEnumerable<ReportExcuseDTO>> GetExcusesByProfessionIdAndEmployeeId(int ProfessionId, int EmployeeId)
         {
-            return await _context.Excuses.Where(e => e.Employee.ProfessionID == ProfessionId && e.EmployeeID == EmployeeId).Select(ex => new ExcuseDTO
+            List <ReportExcuseDTO> lstexcusesDTO = new List<ReportExcuseDTO>();
+            var ExcusesList = (from ex in _context.Excuses.Include(ex => ex.Employee.Profession).Where(e => e.Employee.ProfessionID == ProfessionId && e.EmployeeID == EmployeeId).ToList()
+                               select ex).GroupBy(grp => grp.EmployeeID).ToList();
+            foreach (var item in ExcusesList)
             {
-                ID = ex.ID,
-                Approved = ex.Approved,
-                Comment = ex.Comment,
-                Date = ex.Date,
-                ProfessionID = ex.Employee.ProfessionID,
-                ProfessionName = ex.Employee.Profession.Name,
-                EmployeeId = ex.EmployeeID,
-                EmployeeName = ex.Employee.Name,
-                Hours = ex.Hours,
-                Time = ex.Time
-            }).ToListAsync();
+                ReportExcuseDTO excuseObj = new ReportExcuseDTO();
+                excuseObj.ProfessionName = item.FirstOrDefault().Employee.Profession.Name;
+                excuseObj.ProfessionId = item.FirstOrDefault().Employee.ProfessionID;
+                excuseObj.EmployeeId = item.FirstOrDefault().EmployeeID;
+                excuseObj.EmployeeName = item.FirstOrDefault().Employee.Name;
+                excuseObj.lstExcuse = item.ToList();
+                lstexcusesDTO.Add(excuseObj);
+            }
+            return lstexcusesDTO;
         }
         [Route("GetExcusesByProfessionIdAndEmployeeIdAndDate/{ProfessionId}/{EmployeeId}/{startDate}/{endDate}")]
-        public async Task<ActionResult<IEnumerable<ExcuseDTO>>> GetExcusesByProfessionIdAndEmployeeIdAndDate(int ProfessionId, int EmployeeId, DateTime startDate, DateTime endDate)
+        public ActionResult<IEnumerable<ReportExcuseDTO>> GetExcusesByProfessionIdAndEmployeeIdAndDate(int ProfessionId, int EmployeeId, DateTime startDate, DateTime endDate)
         {
-            var ExcusesList = await _context.Excuses.Where(e => e.Employee.ProfessionID == ProfessionId && e.EmployeeID == EmployeeId
-             && e.Date >= startDate && e.Date <= endDate).Select(ex => new ExcuseDTO
-             {
-                 ID = ex.ID,
-                 Approved = ex.Approved,
-                 Comment = ex.Comment,
-                 Date = ex.Date,
-                 ProfessionID = ex.Employee.ProfessionID,
-                 ProfessionName = ex.Employee.Profession.Name,
-                 EmployeeId = ex.EmployeeID,
-                 EmployeeName = ex.Employee.Name,
-                 Hours = ex.Hours,
-                 Time = ex.Time
-             }).ToListAsync();
-            return ExcusesList;
+            List < ReportExcuseDTO > lstexcusesDTO = new List<ReportExcuseDTO>();
+            var ExcusesList = (from ex in _context.Excuses.Include(ex => ex.Employee.Profession).Where(e => e.Employee.ProfessionID == ProfessionId 
+                               && e.EmployeeID == EmployeeId && e.Date >= startDate && e.Date <= endDate).ToList()
+                               select ex).GroupBy(grp => grp.EmployeeID).ToList();
+            foreach (var item in ExcusesList)
+            {
+                ReportExcuseDTO excuseObj = new ReportExcuseDTO();
+                excuseObj.ProfessionName = item.FirstOrDefault().Employee.Profession.Name;
+                excuseObj.ProfessionId = item.FirstOrDefault().Employee.ProfessionID;
+                excuseObj.EmployeeId = item.FirstOrDefault().EmployeeID;
+                excuseObj.EmployeeName = item.FirstOrDefault().Employee.Name;
+                excuseObj.lstExcuse = item.ToList();
+                lstexcusesDTO.Add(excuseObj);
+            }
+            return lstexcusesDTO;
         }
         [Route("GetExcusesByManager")]
         public async Task<ActionResult<IEnumerable<ExcuseDTO>>> GetExcusesByManager()
