@@ -74,7 +74,7 @@ namespace HrAPI.Controllers
         public IEnumerable<LeaveReportDTO> GetLeavesForReport()
         {
             List<LeaveReportDTO> lstReportDTO = new List<LeaveReportDTO>();
-            var LeavesList = (from ex in _context.LeaveRequests.Include(ex => ex.Employee.Profession).Include(le=>le.LeaveType).ToList()
+            var LeavesList = (from ex in _context.LeaveRequests.Include(ex => ex.Employee.Profession).Include(le=>le.AlternativeEmp).Include(le=>le.LeaveType).ToList()
                               select ex).GroupBy(grp => grp.EmployeeID).ToList();
             foreach (var item in LeavesList)
             {
@@ -93,7 +93,7 @@ namespace HrAPI.Controllers
         {
 
             List<LeaveReportDTO> lstReportDTO = new List<LeaveReportDTO>();
-            var LeavesList = (from ex in await _context.LeaveRequests.Include(ex => ex.Employee.Profession).Include(le => le.LeaveType).Where(l => l.Employee.ProfessionID == ProfessionId).ToListAsync()
+            var LeavesList = (from ex in await _context.LeaveRequests.Include(ex => ex.Employee.Profession).Include(le => le.AlternativeEmp).Include(le => le.LeaveType).Where(l => l.Employee.ProfessionID == ProfessionId).ToListAsync()
                               select ex).GroupBy(grp => grp.EmployeeID).ToList();
             foreach (var item in LeavesList)
             {
@@ -112,7 +112,7 @@ namespace HrAPI.Controllers
         {
 
             List<LeaveReportDTO> lstReportDTO = new List<LeaveReportDTO>();
-            var LeavesList = (from ex in await _context.LeaveRequests.Include(ex => ex.Employee.Profession).Include(le => le.LeaveType).Where(l => l.Employee.ProfessionID == ProfessionId && l.EmployeeID == EmployeeId).ToListAsync()
+            var LeavesList = (from ex in await _context.LeaveRequests.Include(ex => ex.Employee.Profession).Include(le => le.AlternativeEmp).Include(le => le.LeaveType).Where(l => l.Employee.ProfessionID == ProfessionId && l.EmployeeID == EmployeeId).ToListAsync()
                               select ex).GroupBy(grp => grp.EmployeeID).ToList();
             foreach (var item in LeavesList)
             {
@@ -126,12 +126,13 @@ namespace HrAPI.Controllers
             }
             return lstReportDTO;
         }
+
         [Route("GetLeaveRequestsByProfessionIdEmployeeIdAndDate/{ProfessionId}/{EmployeeId}/{startDate}/{endDate}")]
         public async Task<ActionResult<IEnumerable<LeaveReportDTO>>> GetLeaveRequestsByProfessionIdEmployeeIdAndDate(int ProfessionId, int EmployeeId, DateTime startDate, DateTime endDate)
         {
 
             List<LeaveReportDTO> lstReportDTO = new List<LeaveReportDTO>();
-            var LeavesList = (from ex in await _context.LeaveRequests.Include(ex => ex.Employee.Profession).Include(le => le.LeaveType).Where(l => l.Employee.ProfessionID == ProfessionId
+            var LeavesList = (from ex in await _context.LeaveRequests.Include(ex => ex.Employee.Profession).Include(le => le.AlternativeEmp).Include(le => le.LeaveType).Where(l => l.Employee.ProfessionID == ProfessionId
                               && l.EmployeeID == EmployeeId && l.Start >= startDate && l.Start <= endDate).ToListAsync()
                               select ex).GroupBy(grp => grp.EmployeeID).ToList();
             foreach (var item in LeavesList)

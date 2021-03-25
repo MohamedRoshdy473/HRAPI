@@ -486,3 +486,6 @@ D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\HrAPI.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\HrAPI.pdb
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\HrAPI.genruntimeconfig.cache
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\scopedcss\bundle\HrAPI.styles.css
+D:\HRAPI\HrAPI\bin\Release\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+D:\HRAPI\HrAPI\bin\Release\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\HRAPI\HrAPI\bin\Release\netcoreapp3.1\Newtonsoft.Json.Bson.dll

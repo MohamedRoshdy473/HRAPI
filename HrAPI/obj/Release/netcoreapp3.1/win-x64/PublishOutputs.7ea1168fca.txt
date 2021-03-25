@@ -89,6 +89,7 @@ D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\images\9F0HR
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\images\9IKVAJ8E3D386DG7P4RVRX5GN8ME1DZC2BL8G8UC.png
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\images\9J8Q6IIUYK9033Z6QDFA5STCUWYFITOEY9IUWFTZ.jpg
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\images\9LV4QG9OSBYLS0C893LUA58FASH681F8N33RUVEW.jpg
+D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\images\9P4HTSRINXJFXOG6R35TYT51L35TO0TVAOXD5DRG.jpg
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\images\9STIU81NO92NXHUDGUWDRR4UZEO1BR0V3W8U6F94.jpg
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\images\9SV7DFUAW083ZJTABT22PZ6UV8956JV5HJKHBMO1.JPG
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\images\9U02M7FDB97FQ180YJFD8HIY42LMH56983GRLIOQ.jpg
@@ -671,6 +672,8 @@ D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\aspnetcorev2_inproce
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\MailKit.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\Microsoft.AspNetCore.JsonPatch.dll
+D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\Microsoft.AspNetCore.Razor.Language.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\Microsoft.Bcl.HashCode.dll
@@ -705,6 +708,7 @@ D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\Microsoft.VisualStud
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\MimeKit.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\NETCore.MailKit.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\Newtonsoft.Json.dll
+D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\Newtonsoft.Json.Bson.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\NuGet.Frameworks.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\BouncyCastle.Crypto.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\SQLitePCLRaw.batteries_v2.dll
