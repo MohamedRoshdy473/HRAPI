@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using HrAPI.ConfirmationMail;
+using System;
 
 namespace HrAPI
 {
@@ -53,7 +54,8 @@ namespace HrAPI
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-
+            services.Configure<DataProtectionTokenProviderOptions>(opt =>
+                   opt.TokenLifespan = TimeSpan.FromHours(2));
             // Adding Authentication  
             services.AddAuthentication(options =>
             {
