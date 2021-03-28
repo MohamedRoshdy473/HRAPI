@@ -15,6 +15,7 @@ using HrAPI.ViewModels;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authorization;
 using HrAPI.ConfirmationMail;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace HrAPI.Controllers
 {
@@ -136,7 +137,7 @@ namespace HrAPI.Controllers
                     await roleManager.CreateAsync(new IdentityRole(UserRoles.HR));
                 await userManager.AddToRoleAsync(user, UserRoles.HR);
             }
-            string url = "http://localhost:4200/login";
+            string url = "http://10.10.0.129:7777/#/login";
             var message = new Message(new string[] { $"{model.Email}" }, "Confirmation Email", $"Dear {model.UserName}\r\n Hope this email finds you well \r\n This is Al-Mostakbal Technology. As per your registration , please note that your Email : {model.Email} And Password :{model.Password} follow link to login {url}");
             _emailSender.SendEmail(message);
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
@@ -190,5 +191,66 @@ namespace HrAPI.Controllers
         {
             return  Ok();
         }
+
+        [HttpPost("ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordModel forgotPasswordModel)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var user = await userManager.FindByEmailAsync(forgotPasswordModel.Email);
+            if (user == null)
+                return BadRequest("Invalid Request");
+
+            var token = await userManager.GeneratePasswordResetTokenAsync(user);
+            var param = new Dictionary<string, string>
+             {
+                 {"token", token },
+                 {"email", forgotPasswordModel.Email }
+             };
+
+            var callback = QueryHelpers.AddQueryString(forgotPasswordModel.ClientURI, param);
+
+            var message = new Message(new string[] { user.Email }, "Reset password.", callback);
+            _emailSender.SendEmail(message);
+
+            return Ok();
+        }
+        [HttpPost("ResetPassword")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO resetPasswordDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var user = await userManager.FindByEmailAsync(resetPasswordDto.Email);
+            if (user == null)
+                return BadRequest("Invalid Request");
+
+            var resetPassResult = await userManager.ResetPasswordAsync(user, resetPasswordDto.Token, resetPasswordDto.Password);
+            if (!resetPassResult.Succeeded)
+            {
+                var errors = resetPassResult.Errors.Select(e => e.Description);
+
+                return BadRequest(new { Errors = errors });
+            }
+
+            return Ok();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

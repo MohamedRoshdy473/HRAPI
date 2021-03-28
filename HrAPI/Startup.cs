@@ -39,6 +39,8 @@ namespace HrAPI
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
 
+
+
             //.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             // services.AddControllers();
             var emailConfig = Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
