@@ -11,7 +11,7 @@ namespace HrAPI.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         public string Name { get; set; }
-        public int ManagerID { get; set; }
+        public int? ManagerID { get; set; }
         [ForeignKey("ManagerID")]
         public Employee Manager { get; set; }
         [InverseProperty("Profession")]

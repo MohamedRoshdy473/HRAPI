@@ -8,6 +8,8 @@ namespace HrAPI.ConfirmationMail
    public interface IEmailSender
     {
         void SendEmail(Message message);
+        void SendEmailString(string message);
+
 
     }
 }

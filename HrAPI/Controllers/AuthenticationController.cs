@@ -210,10 +210,12 @@ namespace HrAPI.Controllers
              };
 
             var callback = QueryHelpers.AddQueryString(forgotPasswordModel.ClientURI, param);
-
-            var message = new Message(new string[] { user.Email }, "Reset password.", callback);
+            var hash = callback.Split("#");
+            var query = hash[0];
+            string replace = query.Replace("/?", "/#/Resetpassword?");
+            var message = new Message(new string[] { user.Email }, "Al-Mostakbal Technology.", $"Dear {user.UserName}\r\n Please follow link to reset your password {replace}");
+           // var message = new Message(new string[] { user.Email }, "Al-Mostakbal Technology.", replace);
             _emailSender.SendEmail(message);
-
             return Ok();
         }
         [HttpPost("ResetPassword")]

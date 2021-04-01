@@ -22,6 +22,12 @@ namespace HrAPI.ConfirmationMail
 
             Send(emailMessage);
         }
+
+        public void SendEmailString(string message)
+        {
+            throw new NotImplementedException();
+        }
+
         private MimeMessage CreateEmailMessage(Message message)
         {
             var emailMessage = new MimeMessage();

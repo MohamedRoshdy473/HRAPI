@@ -44,7 +44,7 @@ namespace HrAPI.Models
         public int PositionlevelId { get; set; }
         [ForeignKey("PositionlevelId")]
         public virtual PositionLevel PositionLevel { get; set; }
-        public int FacultyDepartmentId { get; set; }
+        public int? FacultyDepartmentId { get; set; }
         [ForeignKey("FacultyDepartmentId")]
         public virtual FacultyDepartment FacultyDepartment { get; set; }
 

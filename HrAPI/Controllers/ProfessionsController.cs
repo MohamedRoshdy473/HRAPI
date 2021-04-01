@@ -32,7 +32,7 @@ namespace HrAPI.Controllers
             var profs = _context.Professions.Include(p => p.Manager).Select(prof => new ProfessionDTO
             {
                 ID = prof.ID,
-                ManagerID = prof.ManagerID,
+                ManagerID = (int)prof.ManagerID,
                 ManagerName = prof.Manager.Name,
                 Name = prof.Name
             }).ToListAsync();
