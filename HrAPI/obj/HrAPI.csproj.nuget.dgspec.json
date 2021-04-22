@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\HRAPI\\HrAPI\\HrAPI.csproj": {}
+    "D:\\Back Up\\HRAPI\\HrAPI\\HrAPI.csproj": {}
   },
   "projects": {
-    "D:\\HRAPI\\HrAPI\\HrAPI.csproj": {
+    "D:\\Back Up\\HRAPI\\HrAPI\\HrAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\HRAPI\\HrAPI\\HrAPI.csproj",
+        "projectUniqueName": "D:\\Back Up\\HRAPI\\HrAPI\\HrAPI.csproj",
         "projectName": "HrAPI",
-        "projectPath": "D:\\HRAPI\\HrAPI\\HrAPI.csproj",
+        "projectPath": "D:\\Back Up\\HRAPI\\HrAPI\\HrAPI.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\HRAPI\\HrAPI\\obj\\",
+        "outputPath": "D:\\Back Up\\HRAPI\\HrAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -101,7 +101,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

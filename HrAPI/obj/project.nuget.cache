@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4cGEFyr61gXw/ZYt86w9UIcCGgVZroG2mHYHttqjvIVSlbB6RXPUGsQpAgPwBJv0UknKrJas9fMicvC9AB6GGA==",
+  "dgSpecHash": "PDX4v2LI9VqTj8elOHBefOZUxRu/qojjw7jpn9mLrPoxBDAWNkoni/jEWKym6yJDkzUlvQ0Uoo4qtfJJRase5w==",
   "success": true,
-  "projectFilePath": "D:\\HRAPI\\HrAPI\\HrAPI.csproj",
+  "projectFilePath": "D:\\Back Up\\HRAPI\\HrAPI\\HrAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\mailkit\\2.6.0\\mailkit.2.6.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",

@@ -68,6 +68,7 @@ namespace HrAPI.Controllers
            // var results = ExcusesList.GroupBy(p => p.ProfessionName).Select(grp => grp.ToList()).ToList();
             return ExcusesList;
         }
+
         [Route("GetExcusesForReport")]
         public IEnumerable<ReportExcuseDTO> GetExcusesForReport()
         {
@@ -102,6 +103,7 @@ namespace HrAPI.Controllers
             }
             return lstexcusesDTO;
         }
+
         [Route("GetExcusesByProfessionId/{ProfessionId}")]
         public ActionResult<IEnumerable<ReportExcuseDTO>> GetExcusesByProfessionId(int ProfessionId)
         {
@@ -120,6 +122,7 @@ namespace HrAPI.Controllers
             }
             return  lstexcusesDTO;
         }
+
         [Route("GetExcusesByProfessionIdAndEmployeeId/{ProfessionId}/{EmployeeId}")]
         public ActionResult<IEnumerable<ReportExcuseDTO>> GetExcusesByProfessionIdAndEmployeeId(int ProfessionId, int EmployeeId)
         {
@@ -138,6 +141,7 @@ namespace HrAPI.Controllers
             }
             return lstexcusesDTO;
         }
+
         [Route("GetExcusesByProfessionIdAndEmployeeIdAndDate/{ProfessionId}/{EmployeeId}/{startDate}/{endDate}")]
         public ActionResult<IEnumerable<ReportExcuseDTO>> GetExcusesByProfessionIdAndEmployeeIdAndDate(int ProfessionId, int EmployeeId, DateTime startDate, DateTime endDate)
         {
@@ -157,6 +161,7 @@ namespace HrAPI.Controllers
             }
             return lstexcusesDTO;
         }
+        
         [Route("GetExcusesByManager")]
         public async Task<ActionResult<IEnumerable<ExcuseDTO>>> GetExcusesByManager()
         {
@@ -175,6 +180,7 @@ namespace HrAPI.Controllers
                  }).ToListAsync();
             return ex;
         }
+
         [Route("ApprovedExcuses")]
         public async Task<ActionResult<IEnumerable<ExcuseDTO>>> GetApprovedExcuses()
         {
@@ -190,6 +196,7 @@ namespace HrAPI.Controllers
                 Time = ex.Time
             }).ToListAsync();
         }
+
         [Route("ApprovedExcusesByManager")]
         public async Task<ActionResult<IEnumerable<ExcuseDTO>>> GetApprovedExcusesByManager()
         {
@@ -221,6 +228,7 @@ namespace HrAPI.Controllers
                 Time = ex.Time
             }).ToListAsync();
         }
+
         [Route("DisApprovedExcusesByManager")]
         public async Task<ActionResult<IEnumerable<ExcuseDTO>>> GetDisApprovedExcusesByManager()
         {
@@ -236,6 +244,7 @@ namespace HrAPI.Controllers
                 Time = ex.Time
             }).ToListAsync();
         }
+
         [Route("PendingExcuses")]
         public async Task<ActionResult<IEnumerable<ExcuseDTO>>> GetPendingExcuses()
         {
@@ -258,6 +267,7 @@ namespace HrAPI.Controllers
                  }).ToListAsync();
             return await ex;
         }
+
         [Route("PendingExcusesByHR")]
         public async Task<ActionResult<IEnumerable<ExcuseDTO>>> GetPendingExcusesByHR()
         {
@@ -276,6 +286,7 @@ namespace HrAPI.Controllers
                  }).ToListAsync();
             return await ex;
         }
+
         //[HttpGet("{id}")]
         [Route("AcceptExcuse/{id}")]
         public ActionResult AcceptExcuse(int id)
@@ -290,6 +301,7 @@ namespace HrAPI.Controllers
             _context.SaveChanges();
             return Ok();
         }
+
         [Route("RejectExcuse/{id}")]
         public ActionResult RejectExcuse(int id)
         {
@@ -302,6 +314,7 @@ namespace HrAPI.Controllers
             _context.SaveChanges();
             return Ok();
         }
+
         [Route("PreviousExcuses")]
         public async Task<ActionResult<IEnumerable<ExcuseDTO>>> PreviousExcuses()
         {
@@ -329,6 +342,7 @@ namespace HrAPI.Controllers
             }
             return lstExecuses;
         }
+
         //GET: api/Excuses/5
         [HttpGet("{id}")]
         public ActionResult<ExcuseDTO> GetExcuse(int id)
@@ -354,6 +368,7 @@ namespace HrAPI.Controllers
 
             return excuseDTO;
         }
+
         [Route("GetExcuseByEmployeeId/{EmployeeId}")]
         public Boolean GetExcuseByEmployeeId(int EmployeeId)
         {
@@ -388,6 +403,7 @@ namespace HrAPI.Controllers
         // PUT: api/Excuses/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutExcuse(int id, Excuse excuse)
         {
@@ -441,7 +457,7 @@ namespace HrAPI.Controllers
         {
             if (excuse.EmployeeID == 0)
             {
-                System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+              //  System.Security.Claims.ClaimsPrincipal currentUser = this.User;
                 var email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
                 var lstUsers = _context.Employees.Where(e => e.Email == email).ToList();
                 if (lstUsers.Count > 0)
