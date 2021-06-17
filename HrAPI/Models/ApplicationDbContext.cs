@@ -59,9 +59,10 @@ namespace HrAPI.Models
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<EmployeeDocuments> EmployeeDocuments { get; set; }
         public DbSet<FacultyDepartment> FacultyDepartments { get; set; }
-        public DbSet<HrAPI.DTO.FacultyDTO> FacultyDTO { get; set; }
-        public DbSet<HrAPI.DTO.FacultyDepartmentDTO> FacultyDepartmentDTO { get; set; }
-        public DbSet<HrAPI.DTO.EmployeeDocumentsDTO> EmployeeDocumentsDTO { get; set; }
+        public DbSet<School> School { get; set; }
+        public DbSet<SchoolDepartments> SchoolDepartments { get; set; }
+        public DbSet<EducationStatus> EducationStatus { get; set; }
+
 
     }
 

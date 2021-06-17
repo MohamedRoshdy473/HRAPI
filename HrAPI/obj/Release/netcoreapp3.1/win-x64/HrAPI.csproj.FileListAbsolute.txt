@@ -1429,8 +1429,8 @@ D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\staticwebassets\HrAPI.StaticWeb
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\HrAPI.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\HrAPI.pdb
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\HrAPI.genruntimeconfig.cache
-D:\HRAPI\HrAPI\bin\Release\netcoreapp3.1\win-x64\mscordaccore_amd64_amd64_4.700.21.6504.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\scopedcss\bundle\HrAPI.styles.css
 D:\HRAPI\HrAPI\bin\Release\netcoreapp3.1\win-x64\Microsoft.AspNetCore.JsonPatch.dll
 D:\HRAPI\HrAPI\bin\Release\netcoreapp3.1\win-x64\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\HRAPI\HrAPI\bin\Release\netcoreapp3.1\win-x64\Newtonsoft.Json.Bson.dll
+D:\HRAPI\HrAPI\bin\Release\netcoreapp3.1\win-x64\mscordaccore_amd64_amd64_4.700.21.11102.dll

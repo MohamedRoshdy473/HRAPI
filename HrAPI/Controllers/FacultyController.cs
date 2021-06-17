@@ -133,7 +133,7 @@ namespace HrAPI.Controllers
 
         private bool FacultyDTOExists(int id)
         {
-            return _context.FacultyDTO.Any(e => e.Id == id);
+            return _context.Faculties.Any(e => e.Id == id);
         }
     }
 }

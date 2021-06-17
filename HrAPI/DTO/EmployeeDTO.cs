@@ -30,12 +30,18 @@ namespace HrAPI.DTO
         public string PositionName { get; set; }
         public int PositionlevelId { get; set; }
         public string LevelName  { get; set; }
-        public int FacultyDepartmentId { get; set; }
+        public int? FacultyDepartmentId { get; set; }
         public string FacultyDepartmentName { get; set; }
         public int UniversityId { get; set; }
         public string UniversityName { get; set; }
         public int FacultyId { get; set; }
         public string FacultyName { get; set; }
+        public int? SchoolDepartmentId { get; set; }
+        public string SchoolDepartmentName { get; set; }
+        public int? SchoolId { get; set; }
+        public string SchoolName { get; set; }
+        public string Education { get; set; }
+        public Boolean IsActive { get; set; }
 
     }
 }

@@ -37,7 +37,8 @@ namespace HrAPI.Models
         public string Mobile { get; set; }
         public string EmailCompany { get; set; }
         public string NationalId { get; set; }
-
+        public string Education { get; set; }
+        public Boolean IsActive  { get; set; }
         public int PositionId { get; set; }
         [ForeignKey("PositionId")]
         public virtual Positions Positions { get; set; }
@@ -47,6 +48,8 @@ namespace HrAPI.Models
         public int? FacultyDepartmentId { get; set; }
         [ForeignKey("FacultyDepartmentId")]
         public virtual FacultyDepartment FacultyDepartment { get; set; }
-
+        public int? SchoolDepartmentsId { get; set; }
+        [ForeignKey("SchoolDepartmentsId")]
+        public virtual SchoolDepartments SchoolDepartments { get; set; }
     }
 }

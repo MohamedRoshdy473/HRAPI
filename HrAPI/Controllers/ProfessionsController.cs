@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HrAPI.Controllers
 {
-    [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class ProfessionsController : ControllerBase

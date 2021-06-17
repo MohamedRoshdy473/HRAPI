@@ -31,7 +31,7 @@ namespace HrAPI.Controllers
                 FacultyDepartmentName = facultyDep.FacultyDepartmentName,
                 FacultyId = facultyDep.FacultyId,
                 FacultyName = facultyDep.Faculty.FacultyName,
-                UniversityId = facultyDep.Faculty.UniversityID,
+                UniversityID = facultyDep.Faculty.UniversityID,
                 UniversityName = facultyDep.Faculty.University.UniversityName
             }).ToListAsync();
         }
@@ -47,7 +47,7 @@ namespace HrAPI.Controllers
                 FacultyDepartmentName = facultyDep.FacultyDepartmentName,
                 FacultyId = facultyDep.FacultyId,
                 FacultyName = facultyDep.Faculty.FacultyName,
-                UniversityId = facultyDep.Faculty.UniversityID,
+                UniversityID = facultyDep.Faculty.UniversityID,
                 UniversityName = facultyDep.Faculty.University.UniversityName
             };
             if (facultyDep == null)
@@ -137,7 +137,7 @@ namespace HrAPI.Controllers
 
         private bool FacultyDepartmentDTOExists(int id)
         {
-            return _context.FacultyDepartmentDTO.Any(e => e.Id == id);
+            return _context.FacultyDepartments.Any(e => e.Id == id);
         }
     }
 }

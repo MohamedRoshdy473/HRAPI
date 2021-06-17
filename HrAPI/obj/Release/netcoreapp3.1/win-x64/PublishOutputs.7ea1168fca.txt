@@ -38,6 +38,7 @@ D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\images\2MZIV
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\images\2Z0LOPT6OF3TZAJ8WQNM1JRDQ5CNWS32CR9ASARE.jpg
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\images\336BAQXE3MCSXRLLWZO145TCGEFKRZW1W2XQ6YK3.png
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\images\336QPDRUKFR488HTLJJN59J06XWNLWKPVENV6SIC.jpg
+D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\images\3F44VPBEJ6K1ZWPZTC2Y03FFQP6L2BPA7GEHHP39.png
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\images\3H7HR3475ZEMP28Z3IR9H1PFGTZTZ5R1RBIR8KBY.jpg
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\images\3V4Z714XWTSNEURLQE5O3PTA258DCA1OVHUJFC9D.png
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\images\4AFR9L5XFPHM6UB8Z4CVJA722WVPF7Z2YMAVOY5Y.jpg
@@ -535,7 +536,7 @@ D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\dbgshim.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\hostfxr.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\hostpolicy.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\mscordaccore.dll
-D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\mscordaccore_amd64_amd64_4.700.21.6504.dll
+D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\mscordaccore_amd64_amd64_4.700.21.11102.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\mscordbi.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\mscorrc.debug.dll
 D:\HRAPI\HrAPI\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\mscorrc.dll

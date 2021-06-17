@@ -20,15 +20,15 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HrAPI.Controllers
 {
-    [Authorize(AuthenticationSchemes =
-    JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes =
+    //JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         //private readonly EmployeeCore employeeCore;
-       // private readonly IHostingEnvironment hostingEnvironment;
+        // private readonly IHostingEnvironment hostingEnvironment;
         private readonly IWebHostEnvironment hostingEnvironment;
         private readonly UserManager<ApplicationUser> userManager;
         //private readonly string email;
@@ -50,54 +50,12 @@ namespace HrAPI.Controllers
         public IEnumerable<EmployeeDTO> GetEmployees()
         {
 
-            var emps = _context.Employees.Select(e => new EmployeeDTO
-            {
-                ID=e.ID,
-                Name = e.Name,
-                ProfessionName = e.Profession.Name,
-                GraduatioYear = e.GraduatioYear,
-                Address = e.Address,
-                Code = e.Code,
-                DateOfBirth = e.DateOfBirth,
-                Email = e.Email,
-                gender = e.gender,
-                HiringDateHiringDate = e.HiringDateHiringDate,
-                MaritalStatus = e.MaritalStatus,
-                Phone = e.Phone,
-                RelevantPhone = e.RelevantPhone,
-                Photo=e.photo,
-
-                EmailCompany=e.EmailCompany,
-                Mobile=e.Mobile,
-                NationalId=e.NationalId,
-                FacultyDepartmentName = e.FacultyDepartment.FacultyDepartmentName,
-                FacultyDepartmentId=(int)e.FacultyDepartmentId,
-                FacultyName=e.FacultyDepartment.Faculty.FacultyName,
-                UniversityName=e.FacultyDepartment.Faculty.University.UniversityName,
-                PositionId=e.PositionId,
-                PositionName=e.Positions.PositionName,
-                PositionlevelId=e.PositionlevelId,
-                LevelName = e.PositionLevel.LevelName
-
-            }).ToList();
-            return emps;
-        }
-
-        // GET: api/Employees/5
-        [HttpGet("{id}")]
-        public EmployeeDTO GetEmployee(int id)
-        {
-            //var ff =  _context.Employees.Include(e=>e.Profession).FirstOrDefault(e=>e.ID==id).Profession;
-            var e =  _context.Employees.Include(e=>e.Profession).Include(e=>e.FacultyDepartment)
-                .Include(e => e.FacultyDepartment.Faculty).Include(e => e.FacultyDepartment.Faculty.University)
-                .Include(e => e.PositionLevel).Include(e => e.Positions)
-                .FirstOrDefault(e=>e.ID == id);
-            var emp = new EmployeeDTO
+            var emps = _context.Employees.Where(e => e.IsActive == true).Select(e => new EmployeeDTO
             {
                 ID = e.ID,
                 Name = e.Name,
+                ProfessionID = e.ProfessionID,
                 ProfessionName = e.Profession.Name,
-                ProfessionID = e.Profession.ID,
                 GraduatioYear = e.GraduatioYear,
                 Address = e.Address,
                 Code = e.Code,
@@ -109,21 +67,183 @@ namespace HrAPI.Controllers
                 Phone = e.Phone,
                 RelevantPhone = e.RelevantPhone,
                 Photo = e.photo,
-
                 EmailCompany = e.EmailCompany,
                 Mobile = e.Mobile,
                 NationalId = e.NationalId,
                 FacultyDepartmentName = e.FacultyDepartment.FacultyDepartmentName,
                 FacultyDepartmentId = (int)e.FacultyDepartmentId,
-                FacultyId=e.FacultyDepartment.FacultyId,
                 FacultyName = e.FacultyDepartment.Faculty.FacultyName,
-                UniversityId=e.FacultyDepartment.Faculty.UniversityID,
                 UniversityName = e.FacultyDepartment.Faculty.University.UniversityName,
                 PositionId = e.PositionId,
                 PositionName = e.Positions.PositionName,
                 PositionlevelId = e.PositionlevelId,
-                LevelName = e.PositionLevel.LevelName
-            };
+                LevelName = e.PositionLevel.LevelName,
+                IsActive = e.IsActive,
+                SchoolDepartmentId = e.SchoolDepartmentsId,
+                SchoolDepartmentName = e.SchoolDepartments.SchoolDepartmentName,
+
+            }).ToList();
+            return emps;
+        }
+        [Route("GetUnworkedEmployees")]
+        public IEnumerable<EmployeeDTO> GetUnworkedEmployees()
+        {
+
+            var emps = _context.Employees.Where(e => e.IsActive == false).Select(e => new EmployeeDTO
+            {
+                ID = e.ID,
+                Name = e.Name,
+                ProfessionID = e.ProfessionID,
+                ProfessionName = e.Profession.Name,
+                GraduatioYear = e.GraduatioYear,
+                Address = e.Address,
+                Code = e.Code,
+                DateOfBirth = e.DateOfBirth,
+                Email = e.Email,
+                gender = e.gender,
+                HiringDateHiringDate = e.HiringDateHiringDate,
+                MaritalStatus = e.MaritalStatus,
+                Phone = e.Phone,
+                RelevantPhone = e.RelevantPhone,
+                Photo = e.photo,
+                EmailCompany = e.EmailCompany,
+                Mobile = e.Mobile,
+                NationalId = e.NationalId,
+                FacultyDepartmentName = e.FacultyDepartment.FacultyDepartmentName,
+                FacultyDepartmentId = (int)e.FacultyDepartmentId,
+                FacultyName = e.FacultyDepartment.Faculty.FacultyName,
+                UniversityName = e.FacultyDepartment.Faculty.University.UniversityName,
+                PositionId = e.PositionId,
+                PositionName = e.Positions.PositionName,
+                PositionlevelId = e.PositionlevelId,
+                LevelName = e.PositionLevel.LevelName,
+                IsActive = e.IsActive,
+                SchoolDepartmentId = e.SchoolDepartmentsId,
+                SchoolDepartmentName = e.SchoolDepartments.SchoolDepartmentName,
+
+            }).ToList();
+            return emps;
+        }
+        // GET: api/Employees/5
+        [HttpGet("{id}")]
+        public EmployeeDTO GetEmployee(int id)
+        {
+           //  e = new Employee();
+            EmployeeDTO emp=new EmployeeDTO();
+               Employee e = _context.Employees.Where(e => e.ID == id).Include(e => e.Profession).Include(e => e.FacultyDepartment)
+                .Include(e => e.FacultyDepartment.Faculty).Include(e => e.FacultyDepartment.Faculty.University)
+                .Include(e => e.PositionLevel).Include(e => e.Positions).Include(e => e.SchoolDepartments)
+                .Include(e => e.SchoolDepartments.School).FirstOrDefault();
+            try
+            {
+                //school
+                if (e.FacultyDepartment == null && e.SchoolDepartments != null)
+                {
+                    emp = new EmployeeDTO
+                    {
+                        ID = e.ID,
+                        Name = e.Name,
+                        ProfessionName = e.Profession.Name,
+                        ProfessionID = e.Profession.ID,
+                        GraduatioYear = e.GraduatioYear,
+                        Address = e.Address,
+                        Code = e.Code,
+                        DateOfBirth = e.DateOfBirth,
+                        Email = e.Email,
+                        gender = e.gender,
+                        HiringDateHiringDate = e.HiringDateHiringDate,
+                        MaritalStatus = e.MaritalStatus,
+                        Phone = e.Phone,
+                        RelevantPhone = e.RelevantPhone,
+                        Photo = e.photo,
+                        EmailCompany = e.EmailCompany,
+                        Mobile = e.Mobile,
+                        NationalId = e.NationalId,
+                        PositionId = e.PositionId,
+                        PositionName = e.Positions.PositionName,
+                        PositionlevelId = e.PositionlevelId,
+                        LevelName = e.PositionLevel.LevelName,
+                        Education = e.Education,
+                        SchoolDepartmentId = e.SchoolDepartmentsId,
+                        SchoolDepartmentName = e.SchoolDepartments.SchoolDepartmentName,
+                        SchoolId = e.SchoolDepartments.SchoolId,
+                        SchoolName = e.SchoolDepartments.School.SchoolName
+                    };
+                }
+              //no education
+                else if (e.SchoolDepartments == null && e.FacultyDepartment == null)
+                {
+                    emp = new EmployeeDTO
+                    {
+                        ID = e.ID,
+                        Name = e.Name,
+                        ProfessionName = e.Profession.Name,
+                        ProfessionID = e.Profession.ID,
+                        GraduatioYear = e.GraduatioYear,
+                        Address = e.Address,
+                        Code = e.Code,
+                        DateOfBirth = e.DateOfBirth,
+                        Email = e.Email,
+                        gender = e.gender,
+                        HiringDateHiringDate = e.HiringDateHiringDate,
+                        MaritalStatus = e.MaritalStatus,
+                        Phone = e.Phone,
+                        RelevantPhone = e.RelevantPhone,
+                        Photo = e.photo,
+                        EmailCompany = e.EmailCompany,
+                        Mobile = e.Mobile,
+                        NationalId = e.NationalId,
+                        PositionId = e.PositionId,
+                        PositionName = e.Positions.PositionName,
+                        PositionlevelId = e.PositionlevelId,
+                        LevelName = e.PositionLevel.LevelName,
+                        Education = e.Education,
+                    };
+                }
+               //faculty
+                else
+                {
+                    emp = new EmployeeDTO
+                    {
+                        ID = e.ID,
+                        Name = e.Name,
+                        ProfessionName = e.Profession.Name,
+                        ProfessionID = e.Profession.ID,
+                        GraduatioYear = e.GraduatioYear,
+                        Address = e.Address,
+                        Code = e.Code,
+                        DateOfBirth = e.DateOfBirth,
+                        Email = e.Email,
+                        gender = e.gender,
+                        HiringDateHiringDate = e.HiringDateHiringDate,
+                        MaritalStatus = e.MaritalStatus,
+                        Phone = e.Phone,
+                        RelevantPhone = e.RelevantPhone,
+                        Photo = e.photo,
+                        EmailCompany = e.EmailCompany,
+                        Mobile = e.Mobile,
+                        NationalId = e.NationalId,
+                        PositionId = e.PositionId,
+                        PositionName = e.Positions.PositionName,
+                        PositionlevelId = e.PositionlevelId,
+                        LevelName = e.PositionLevel.LevelName,
+                        Education = e.Education,
+
+                        FacultyDepartmentName = e.FacultyDepartment.FacultyDepartmentName,
+                        FacultyDepartmentId = e.FacultyDepartmentId,
+                        FacultyId = e.FacultyDepartment.FacultyId,
+                        FacultyName = e.FacultyDepartment.Faculty.FacultyName,
+                        UniversityId = e.FacultyDepartment.Faculty.UniversityID,
+                        UniversityName = e.FacultyDepartment.Faculty.University.UniversityName,
+                    };
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                string msg = ex.Message;
+            }
             if (emp == null)
             {
                 return null;
@@ -136,18 +256,48 @@ namespace HrAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEmployee(int id, Employee employee)
+        public IActionResult PutEmployee(int id, EmployeeDTO e)
         {
-            if (id != employee.ID)
+            if (id != e.ID)
             {
                 return BadRequest();
             }
-
+            if (e.FacultyDepartmentId==0)
+            {
+                e.FacultyDepartmentId = null;
+            }
+            if (e.SchoolDepartmentId==0)
+            {
+                e.SchoolDepartmentId = null;
+            }
+            Employee employee = new Employee();
+            employee.ID = e.ID;
+            employee.Name = e.Name;
+            employee.Code = e.Code;
+            employee.ProfessionID = e.ProfessionID;
+            employee.gender = e.gender;
+            employee.Address = e.Address;
+            employee.DateOfBirth = e.DateOfBirth;
+            employee.MaritalStatus = e.MaritalStatus;
+            employee.GraduatioYear = e.GraduatioYear;
+            employee.Phone = e.Phone;
+            employee.RelevantPhone = e.RelevantPhone;
+            employee.Email = e.Email;
+            employee.photo = e.Photo;
+            employee.HiringDateHiringDate = e.HiringDateHiringDate;
+            employee.Mobile = e.Mobile;
+            employee.EmailCompany = e.EmailCompany;
+            employee.NationalId = e.NationalId;
+            employee.Education = e.Education;
+            employee.IsActive = true;
+            employee.PositionId = e.PositionId;
+            employee.PositionlevelId = e.PositionlevelId;
+            employee.FacultyDepartmentId = e.FacultyDepartmentId;
+            employee.SchoolDepartmentsId = e.SchoolDepartmentId;
             _context.Entry(employee).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -168,11 +318,42 @@ namespace HrAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public int   PostEmployee(Employee employee)
+        public int PostEmployee(EmployeeDTO e)
         {
+            if (e.FacultyDepartmentId == 0)
+            {
+                e.FacultyDepartmentId = null;
+            }
+            if (e.SchoolDepartmentId == 0)
+            {
+                e.SchoolDepartmentId = null;
+            }
+            Employee employee = new Employee();
+            employee.Name = e.Name;
+            employee.Code = e.Code;
+            employee.ProfessionID = e.ProfessionID;
+            employee.gender = e.gender;
+            employee.Address = e.Address;
+            employee.DateOfBirth = e.DateOfBirth;
+            employee.MaritalStatus = e.MaritalStatus;
+            employee.GraduatioYear = e.GraduatioYear;
+            employee.Phone = e.Phone;
+            employee.RelevantPhone = e.RelevantPhone;
+            employee.Email = e.Email;
+            employee.photo = e.Photo;
+            employee.HiringDateHiringDate = e.HiringDateHiringDate;
+            employee.Mobile = e.Mobile;
+            employee.EmailCompany = e.EmailCompany;
+            employee.NationalId = e.NationalId;
+            employee.Education = e.Education;
+            employee.IsActive = true;
+            employee.PositionId = e.PositionId;
+            employee.PositionlevelId = e.PositionlevelId;
+            employee.FacultyDepartmentId = e.FacultyDepartmentId;
+            employee.SchoolDepartmentsId = e.SchoolDepartmentId;
 
             _context.Employees.Add(employee);
-             _context.SaveChanges();
+            _context.SaveChanges();
 
             return employee.ID;
         }
@@ -224,7 +405,7 @@ namespace HrAPI.Controllers
                 //}
                 return BadRequest();
             }
-            
+
             return StatusCode(StatusCodes.Status201Created);
         }
 
@@ -245,7 +426,7 @@ namespace HrAPI.Controllers
             var ext = System.IO.Path.GetExtension(path);
             using (var stream = new FileStream(path, FileMode.Open))
             {
-                 stream.CopyTo(memory);
+                stream.CopyTo(memory);
             }
             memory.Position = 0;
             var contentType = "APPLICATION/octet-stream";
@@ -291,33 +472,33 @@ namespace HrAPI.Controllers
                 var EmployeeObj = LstEmpUsers[0];
 
 
-                lstEmployeeDTO = _context.Employees.Where(e => e.ProfessionID == EmployeeObj.ProfessionID  && e.Email != email).Select(e => new EmployeeDTO
-            {
-                ID = e.ID,
-                Name = e.Name,
-                ProfessionName = e.Profession.Name,
-                GraduatioYear = e.GraduatioYear,
-                Address = e.Address,
-                Code = e.Code,
-                DateOfBirth =e.DateOfBirth,
-                Email = e.Email,
-                gender = e.gender,
-                HiringDateHiringDate = e.HiringDateHiringDate,
-                MaritalStatus = e.MaritalStatus,
-                Phone = e.Phone,
-                RelevantPhone = e.RelevantPhone,
-                Photo = e.photo,
+                lstEmployeeDTO = _context.Employees.Where(e => e.ProfessionID == EmployeeObj.ProfessionID && e.Email != email).Select(e => new EmployeeDTO
+                {
+                    ID = e.ID,
+                    Name = e.Name,
+                    ProfessionName = e.Profession.Name,
+                    GraduatioYear = e.GraduatioYear,
+                    Address = e.Address,
+                    Code = e.Code,
+                    DateOfBirth = e.DateOfBirth,
+                    Email = e.Email,
+                    gender = e.gender,
+                    HiringDateHiringDate = e.HiringDateHiringDate,
+                    MaritalStatus = e.MaritalStatus,
+                    Phone = e.Phone,
+                    RelevantPhone = e.RelevantPhone,
+                    Photo = e.photo,
 
-                EmailCompany = e.EmailCompany,
-                Mobile = e.Mobile,
-                NationalId = e.NationalId,
-                FacultyDepartmentName = e.FacultyDepartment.FacultyDepartmentName,
-                FacultyDepartmentId = (int)e.FacultyDepartmentId,
-                FacultyName = e.FacultyDepartment.Faculty.FacultyName,
-                UniversityName = e.FacultyDepartment.Faculty.University.UniversityName,
-                PositionId = e.PositionId,
-                PositionName = e.Positions.PositionName,
-                PositionlevelId = e.PositionlevelId,
+                    EmailCompany = e.EmailCompany,
+                    Mobile = e.Mobile,
+                    NationalId = e.NationalId,
+                    FacultyDepartmentName = e.FacultyDepartment.FacultyDepartmentName,
+                    FacultyDepartmentId = (int)e.FacultyDepartmentId,
+                    FacultyName = e.FacultyDepartment.Faculty.FacultyName,
+                    UniversityName = e.FacultyDepartment.Faculty.University.UniversityName,
+                    PositionId = e.PositionId,
+                    PositionName = e.Positions.PositionName,
+                    PositionlevelId = e.PositionlevelId,
                     LevelName = e.PositionLevel.LevelName
 
                 }).ToList();

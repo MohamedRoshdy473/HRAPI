@@ -26,9 +26,9 @@ namespace HrAPI.Controllers
 
         // GET: api/EmployeeDocumentses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EmployeeDocumentsDTO>>> GetEmployeeDocumentsDTO()
+        public async Task<ActionResult<IEnumerable<EmployeeDocuments>>> GetEmployeeDocumentsDTO()
         {
-            return await _context.EmployeeDocumentsDTO.ToListAsync();
+            return await _context.EmployeeDocuments.ToListAsync();
         }
 
         // GET: api/EmployeeDocumentses/5
@@ -129,7 +129,7 @@ namespace HrAPI.Controllers
 
         private bool EmployeeDocumentsDTOExists(int id)
         {
-            return _context.EmployeeDocumentsDTO.Any(e => e.Id == id);
+            return _context.EmployeeDocuments.Any(e => e.Id == id);
         }
 
         [HttpPost, DisableRequestSizeLimit]

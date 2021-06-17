@@ -15,81 +15,9 @@ namespace HrAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.11")
+                .HasAnnotation("ProductVersion", "3.1.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("HrAPI.DTO.EmployeeDocumentsDTO", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("DocumentName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EmployeeID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EmployeeName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EmployeeDocumentsDTO");
-                });
-
-            modelBuilder.Entity("HrAPI.DTO.FacultyDTO", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FacultyName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UniversityID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UniversityName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FacultyDTO");
-                });
-
-            modelBuilder.Entity("HrAPI.DTO.FacultyDepartmentDTO", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FacultyDepartmentName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FacultyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FacultyName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UniversityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UniversityName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FacultyDepartmentDTO");
-                });
 
             modelBuilder.Entity("HrAPI.Models.ApplicationUser", b =>
                 {
@@ -274,6 +202,21 @@ namespace HrAPI.Migrations
                     b.ToTable("courses");
                 });
 
+            modelBuilder.Entity("HrAPI.Models.EducationStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("EducationStatusName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EducationStatus");
+                });
+
             modelBuilder.Entity("HrAPI.Models.Employee", b =>
                 {
                     b.Property<int>("ID")
@@ -293,6 +236,9 @@ namespace HrAPI.Migrations
                     b.Property<string>("DateOfBirth")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Education")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -307,6 +253,9 @@ namespace HrAPI.Migrations
 
                     b.Property<string>("HiringDateHiringDate")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("MaritalStatus")
                         .HasColumnType("nvarchar(max)");
@@ -335,6 +284,9 @@ namespace HrAPI.Migrations
                     b.Property<string>("RelevantPhone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("SchoolDepartmentsId")
+                        .HasColumnType("int");
+
                     b.Property<string>("gender")
                         .HasColumnType("nvarchar(max)");
 
@@ -350,6 +302,8 @@ namespace HrAPI.Migrations
                     b.HasIndex("PositionlevelId");
 
                     b.HasIndex("ProfessionID");
+
+                    b.HasIndex("SchoolDepartmentsId");
 
                     b.ToTable("Employees");
                 });
@@ -778,6 +732,41 @@ namespace HrAPI.Migrations
                     b.ToTable("Professions");
                 });
 
+            modelBuilder.Entity("HrAPI.Models.School", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("SchoolName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("School");
+                });
+
+            modelBuilder.Entity("HrAPI.Models.SchoolDepartments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("SchoolDepartmentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SchoolId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("SchoolDepartments");
+                });
+
             modelBuilder.Entity("HrAPI.Models.SubCategory", b =>
                 {
                     b.Property<int>("ID")
@@ -1088,6 +1077,10 @@ namespace HrAPI.Migrations
                         .HasForeignKey("ProfessionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("HrAPI.Models.SchoolDepartments", "SchoolDepartments")
+                        .WithMany()
+                        .HasForeignKey("SchoolDepartmentsId");
                 });
 
             modelBuilder.Entity("HrAPI.Models.EmployeeDocuments", b =>
@@ -1221,6 +1214,15 @@ namespace HrAPI.Migrations
                     b.HasOne("HrAPI.Models.Employee", "Manager")
                         .WithMany()
                         .HasForeignKey("ManagerID");
+                });
+
+            modelBuilder.Entity("HrAPI.Models.SchoolDepartments", b =>
+                {
+                    b.HasOne("HrAPI.Models.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HrAPI.Models.SubCategory", b =>
